@@ -38,7 +38,7 @@ sections:
 
       [Get directions &rarr;](https://goo.gl/maps/eh6fn7JjMS4vYs337)
     form_id: contactForm
-    form_action: /thank-you
+    form_action: /form
     form_fields:
       - input_type: text
         name: name

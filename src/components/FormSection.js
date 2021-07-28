@@ -13,7 +13,7 @@ export default class FormSection extends React.Component {
         })
     }
 
-    handleSubmit = (event, data) => {
+    handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const formAction = _.get(section, 'form_action');
@@ -71,9 +71,9 @@ export default class FormSection extends React.Component {
                         )}
                         <div className={classNames('section__form-container', { 'cell': hasText })}>
                             <form
+                                onSubmit={this.handleSubmit}
                                 name={formId}
                                 id={formId}
-                                {...(formAction ? ({ action: formAction }) : null)}
                                 method="POST"
                                 data-netlify="true"
                                 data-netlify-honeypot={formHoneypotName}

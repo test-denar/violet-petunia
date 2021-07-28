@@ -5,6 +5,40 @@ import { classNames, markdownify } from '../utils';
 import FormField from './FormField';
 
 export default class FormSection extends React.Component {
+    formHandler = (data, url) => {
+        return axios({
+            method: 'post',
+            url,
+            data,
+        })
+    }
+
+    handleSubmit = (event, data) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const formAction = _.get(section, 'form_action');
+        if (!formAction) {
+            alert('No form action');
+
+        }
+
+        this.setState({
+            loading: true
+        })
+
+        formHandler(data, 'functions/form').then(() => {
+            this.setState({
+                success: true,
+                loading: false
+            })
+        }).catch((e) => {
+            this.setState({
+                error: true,
+                loading: false
+            })
+        })
+    }
+    
     render() {
         const section = _.get(this.props, 'section');
         const sectionId = _.get(section, 'section_id');

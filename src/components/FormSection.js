@@ -16,11 +16,11 @@ export default class FormSection extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const formAction = _.get(section, 'form_action');
-        if (!formAction) {
-            alert('No form action');
+//         const formAction = _.get(section, 'form_action');
+//         if (!formAction) {
+//             alert('No form action');
 
-        }
+//         }
 
         this.setState({
             loading: true

@@ -7,13 +7,14 @@ exports.handler = function(event, context, callback) {
   const { payload } = JSON.parse(event.body)
   const url = process.env.STACKBIT_API_URL;
 
-  console.log(JSON.stringify(payload));
+  console.log(payload);
+  console.log(url);
 
   if (!url) {
     return;
   }
   // post the notification to Slack
-  request.post({url: process.env.STACKBIT_API_URL, json: JSON.Stringify({})}, function(err, httpResponse, body) {
+  request.post({url: process.env.STACKBIT_API_URL, json: {}}, function(err, httpResponse, body) {
       let msg;
       if (err) {
           msg = 'Form submitted error:' + err;

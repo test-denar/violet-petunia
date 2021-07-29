@@ -27,7 +27,7 @@ export default class FormSection extends React.Component {
             loading: true
         })
 
-        this.formHandler(data, 'functions/form').then(() => {
+        this.formHandler(data, '/functions/form').then(() => {
             this.setState({
                 success: true,
                 loading: false

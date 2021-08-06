@@ -4,6 +4,7 @@ import { sourcebitDataClient } from 'sourcebit-target-next';
 import { withRemoteDataUpdates } from 'sourcebit-target-next/with-remote-data-updates';
 
 import pageLayouts from '../layouts';
+import { postProcess } from '../utils/postProcessStaticProps';
 
 class Page extends React.Component {
     render() {
@@ -25,7 +26,8 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
     console.log('Page [...slug].js getStaticProps, params: ', params);
     const pagePath = '/' + (params.slug ? params.slug.join('/') : '');
-    const props = await sourcebitDataClient.getStaticPropsForPageAtPath(pagePath);
+    let props = await sourcebitDataClient.getStaticPropsForPageAtPath(pagePath);
+    props = await postProcess(props);
     return { props };
 }
 

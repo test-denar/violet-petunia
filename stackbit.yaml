@@ -637,6 +637,10 @@ models:
         description: >-
           The path of your custom "success" page, if you want to replace the
           default success message
+      - type: string
+        name: form_contact
+        label: Form contact
+        default: 'test'
       - type: list
         name: form_fields
         label: Form fields

@@ -10,34 +10,17 @@ export default class FormSection extends React.Component {
         return axios({
             method: 'post',
             url,
-            data,
+            data
         })
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-//         const formAction = _.get(section, 'form_action');
-//         if (!formAction) {
-//             alert('No form action');
-
-//         }
-
-        this.setState({
-            loading: true
-        })
-
-        this.formHandler(data, '/.netlify/functions/form').then(() => {
-            this.setState({
-                success: true,
-                loading: false
-            })
-        }).catch((e) => {
-            this.setState({
-                error: true,
-                loading: false
-            })
-        })
+        const value = Object.fromEntries(data.entries());
+        const section = _.get(this.props, 'section');
+        const formAction = _.get(section, 'form_action');
+        this.formHandler(value, formAction);
     }
     
     render() {
@@ -48,12 +31,13 @@ export default class FormSection extends React.Component {
         const content = _.get(section, 'content');
         const hasText = title || subtitle || content;
         const formId = _.get(section, 'form_id');
-        const formAction = _.get(section, 'form_action');
+        const formContact = _.get(section, 'form_contact');
         const formFields = _.get(section, 'form_fields');
         const submitLabel = _.get(section, 'submit_label');
         const formHoneypotInputId = formId + '-honeypot';
         const formHoneypotLabelId = formId + '-honeypot-label';
         const formHoneypotName = formId + '-bot-field';
+        console.log(formContact);
 
         return (
             <section id={sectionId} className="section section--form">
@@ -90,6 +74,7 @@ export default class FormSection extends React.Component {
                                     </label>
                                 </div>
                                 <input type="hidden" name="form-name" value={formId} />
+                                <input type="hidden" name="form-contact" value={formContact} />
                                 {_.map(formFields, (field, index) => (
                                     <FormField key={index} field={field} section={section} />
                                 ))}

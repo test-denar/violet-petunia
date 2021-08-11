@@ -1,4 +1,7 @@
 const _ = require('lodash');
+const fs = require('fs');
+const { postProcessContactFormEmails } = require('./src/utils/postProcess');
+
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
@@ -26,6 +29,11 @@ module.exports = {
                 ...data,
                 objects
             };
+        },
+        // post processing for data
+        async ({ data }) => {
+            data = await postProcessContactFormEmails(data);
+            return data;
         },
         {
             module: require('sourcebit-target-next'),
